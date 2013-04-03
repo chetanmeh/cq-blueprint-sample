@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ ADOBE SYSTEMS INCORPORATED
+  ~  Copyright 2013 Adobe Systems Incorporated
+  ~  All Rights Reserved.
+  ~
+  ~ NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the
+  ~ terms of the Adobe license agreement accompanying it.  If you have received this file from a
+  ~ source other than Adobe, then your use, modification, or distribution of it requires the prior
+  ~ written permission of Adobe.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.github.chetanmeh</groupId>
+  <artifactId>cq-blueprint-sample-reactor</artifactId>
+  <packaging>pom</packaging>
+  <name>CQ and Blueprint Sample Reactor</name>
+  <version>0.0.1-SNAPSHOT</version>
+
+   <modules>
+      <module>package-gemini</module>
+      <module>package-aries</module>
+      <module>service</module>
+  </modules>
+
+</project>

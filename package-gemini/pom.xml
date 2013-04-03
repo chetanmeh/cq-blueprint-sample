@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~   http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.github.chetanmeh</groupId>
+  <artifactId>cq-gemini-sample-pkg</artifactId>
+  <packaging>content-package</packaging>
+  <name>CQ and Eclipse Gemini Sample Package</name>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <description>
+    This package contains all the jars required to run Eclipse Gemini Blueprint implementation along with the
+    example
+  </description>
+
+  <properties>
+    <crx.host>localhost</crx.host>
+    <crx.port>4502</crx.port>
+    <gemini.version>1.0.2.RELEASE</gemini.version>
+    <spring.version>3.2.2.RELEASE</spring.version>
+  </properties>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/content/jcr_root</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>**/.vlt</exclude>
+          <exclude>**/.vltignore</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <includeEmptyDirs>true</includeEmptyDirs>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.day.jcr.vault</groupId>
+        <artifactId>content-package-maven-plugin</artifactId>
+        <version>0.0.18</version>
+        <extensions>true</extensions>
+        <configuration>
+          <group>sample</group>
+          <version>${project.version}</version>
+          <properties>
+            <acHandling>overwrite</acHandling>
+          </properties>
+          <embeddeds>
+          <!-- bundles -->
+          <embedded>
+            <target>/apps/cqgemini/install</target>
+            <artifactId>
+              org.eclipse.gemini.blueprint.core,
+              org.eclipse.gemini.blueprint.extender,
+              org.eclipse.gemini.blueprint.io,
+              org.springframework.aop,
+              org.springframework.beans,
+              org.springframework.core,
+              org.springframework.context,
+              org.springframework.expression,
+              com.springsource.org.aopalliance,
+              hello-blueprint
+            </artifactId>
+            <excludeTransitive>true</excludeTransitive>
+            <addFilter>true</addFilter>
+          </embedded>
+          </embeddeds>
+          <filters>
+            <filter>
+              <root>/apps/cqgemini/</root>
+            </filter>
+            <filter>
+              <root>/content/cqgemini/samples</root>
+            </filter>
+          </filters>
+          <targetURL>http://${crx.host}:${crx.port}/crx/packmgr/service.jsp</targetURL>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.sling</groupId>
+      <artifactId>org.apache.sling.scripting.jsp.taglib</artifactId>
+      <version>2.1.2</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sling</groupId>
+      <artifactId>org.apache.sling.api</artifactId>
+      <version>2.2.0</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.chetanmeh</groupId>
+      <artifactId>hello-blueprint</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+
+    <!-- Dependencies required for running Eclipse Gemini -->
+    <dependency>
+      <groupId>org.eclipse.gemini</groupId>
+      <artifactId>org.eclipse.gemini.blueprint.core</artifactId>
+      <version>${gemini.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.gemini</groupId>
+      <artifactId>org.eclipse.gemini.blueprint.extender</artifactId>
+      <version>${gemini.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.gemini</groupId>
+      <artifactId>org.eclipse.gemini.blueprint.io</artifactId>
+      <version>${gemini.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.aop</artifactId>
+      <version>${spring.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.beans</artifactId>
+      <version>${spring.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.core</artifactId>
+      <version>${spring.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.context</artifactId>
+      <version>${spring.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.expression</artifactId>
+      <version>${spring.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.aopalliance</groupId>
+      <artifactId>com.springsource.org.aopalliance</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>adobe-public-releases</id>
+      <name>Adobe Public Repository</name>
+      <url>http://repo.adobe.com/nexus/content/groups/public</url>
+    </repository>
+    <repository>
+      <id>com.springsource.repository.bundles.release</id>
+      <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
+      <url>http://repository.springsource.com/maven/bundles/release</url>
+    </repository>
+    <repository>
+      <id>com.springsource.repository.bundles.external</id>
+      <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
+      <url>http://repository.springsource.com/maven/bundles/external</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>adobe-public-releases</id>
+      <name>Adobe Public Repository</name>
+      <url>http://repo.adobe.com/nexus/content/groups/public</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+</project>
