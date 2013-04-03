@@ -11,14 +11,16 @@ registering service with CQ. It consist of following modules
 To see the application in action you need to build it
 
 ```
-$mvn clean install
-$cd package-gemini
-$mvn clean install content-package:install -Dcrx.host=<CQ Server> -Dcrx.port=4502
-$curl -u admin:admin http://localhost:4502/content/cqgemini.html
+$ git clone https://github.com/chetanmeh/cq-blueprint-sample.git
+$ cd cq-blueprint-sample
+$ mvn clean install
+$ cd package-gemini
+$ mvn clean install content-package:install -Dcrx.host=<CQ Server> -Dcrx.port=4502
+$ curl -u admin:admin http://localhost:4502/content/cqgemini.html
     Service invocation result [Hello via Blueprint Service]
 ```
 
-If the command line way of installing the package does not work then deploy the created package from target folder using the CQ Package Manager
+If the command line way of installing the package does not work then deploy the created package from target folder using the CQ Package Manager and then access the url http://localhost:4502/content/cqgemini.html. If all goes well it should say Hello!!
 
 
 
